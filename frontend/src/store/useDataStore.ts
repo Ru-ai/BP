@@ -19,7 +19,6 @@ interface DataStore {
     isLoggingIn: boolean;
     isCheckingAuth: boolean;
     saveUserData: (data: UserData) => Promise<void>;
-    saveUserData2: (data: UserData) => Promise<void>;
     sendEmail1: (email: string, fullName: string) => Promise<void>;
 }
 
@@ -56,30 +55,6 @@ export const useDataStore = create<DataStore>((set) => ({
         } catch (error) {
             console.log("Error in saveUserData:", error);
             toast.error("Failed to save user data");
-        }
-    },
-
-    saveUserData2: async (data) => {
-        const url = 'https://script.google.com/macros/s/AKfycbxczSyoSotjAABTJDytjdXTLo1NeoxTJmCURjKSlujD0XE0GtR9VY-zJFL2DSjimr2Z/exec';
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-            
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            
-            const result = await response.text();
-            console.log("Google Apps Script response:", result);
-        } catch (error) {
-            console.error("Error in saveUserData2:", error);
-            toast.error("Failed to save user data to Google Sheet");
-            throw error;
         }
     },
 

@@ -16,7 +16,7 @@ import { useDataStore } from "@/store/useDataStore";
 export const QualificationForm = () => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { saveUserData, saveUserData2, sendEmail1 } = useDataStore();
+  const { saveUserData, sendEmail1 } = useDataStore();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -45,7 +45,6 @@ export const QualificationForm = () => {
       console.log("QUALIFICATION FORM: Formatted data being sent to Mongo:", formattedData);
       
       saveUserData(formattedData);
-      saveUserData2(formattedData);
       if (!leadData.qualified) {
         sendEmail1(leadData.email, leadData.name);
       }

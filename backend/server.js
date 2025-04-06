@@ -9,6 +9,7 @@ import path from "path";
 dotenv.config();
 
 const __dirname = path.resolve();
+console.log(__dirname);
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -121,10 +122,10 @@ app.use('/api', apiRouter);
 
 // Serve static files
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  app.use(express.static(path.join(__dirname, '../frontend', 'dist')));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend', 'dist', 'index.html'));
   });
 }
 
