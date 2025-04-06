@@ -119,11 +119,20 @@ if (process.env.NODE_ENV === 'production') {
   // Serve static files
   app.use(express.static(path.resolve(__dirname, 'frontend', 'dist')));
 
-  // Serve index.html for any non-API routes
-  app.get('/*', (req, res) => {
-    if (!req.path.startsWith('/api')) {
-      res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
+  // Handle API routes first
+  app.use('/api', (req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      return next();
     }
+  });
+
+  // Serve index.html for all other routes
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
+  });
+
+  app.use((req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
   });
 }
 
