@@ -1,7 +1,7 @@
 import {create} from "zustand";
 import { toast } from "react-hot-toast";
 
-const baseURL = import.meta.env.MODE === 'development' ? 'http://localhost:5000' : '/api';
+const baseURL = import.meta.env.MODE === 'development' ? 'http://localhost:5000/api' : '/api';
 
 interface UserData {
     email: string;
