@@ -45,16 +45,6 @@ app.post('/api/leads', async (req, res) => {
   }
 });
 
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: process.env.SMTP_PORT || 587,
-    secure: process.env.SMTP_SECURE === 'true',
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASSWORD,
-    },
-});
-
 app.get('/api/data', async (req, res) => {
   try {
     const allCustomers = await Data.find({});
@@ -63,6 +53,16 @@ app.get('/api/data', async (req, res) => {
     console.error('Error fetching data:', error);
     res.status(500).json({ error: 'Failed to fetch data' });
   }
+});
+
+const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST || 'smtp.gmail.com',
+    port: process.env.SMTP_PORT || 587,
+    secure: process.env.SMTP_SECURE === 'true',
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD,
+    },
 });
 
 app.post('/api/send', async (req, res) => {
@@ -112,18 +112,18 @@ app.post('/api/send', async (req, res) => {
         error: error.message
       });
     }
-  });
+});
 
+// Production static file serving and catch-all route
 if (process.env.NODE_ENV === 'production') {
   // Serve static files
-  app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
+  app.use(express.static(path.resolve(__dirname, 'frontend', 'dist')));
 
-  // Handle React routing, return all requests to React app
-  app.get('*', function(req, res, next) {
-    if (req.url.startsWith('/api')) {
-      return next();
+  // Serve index.html for any non-API routes
+  app.get('/*', (req, res) => {
+    if (!req.path.startsWith('/api')) {
+      res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
     }
-    res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
   });
 }
 
