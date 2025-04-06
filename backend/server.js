@@ -115,9 +115,14 @@ app.post('/api/send', async (req, res) => {
   });
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'frontend/dist')));
+  // Serve static files
+  app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
-  app.get('/*', (req, res) => {
+  // Handle React routing, return all requests to React app
+  app.get('*', function(req, res, next) {
+    if (req.url.startsWith('/api')) {
+      return next();
+    }
     res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
   });
 }
