@@ -1,8 +1,8 @@
 import ProspectList from '../models/prospect.model.js';
 import dotenv from 'dotenv';
-import { GoogleAuth } from 'google-auth-library';
-import { google } from 'googleapis';
-import { appendValues } from '../controller/waste.js';
+// import { GoogleAuth } from 'google-auth-library';
+// import { google } from 'googleapis';
+// import { appendValues } from '../controller/waste.js';
 
 dotenv.config();
 
@@ -55,7 +55,7 @@ export const saveLead = async (req, res) => {
     
         await newCustomer.save();
         
-        await appendValues();
+        // await appendValues();
         
         res.status(201).json(newCustomer);
     } catch (error) {

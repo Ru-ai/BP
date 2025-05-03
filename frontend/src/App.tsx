@@ -37,7 +37,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/elevateForm" element={<ElevateForm />} />
-                <Route path="/cohert" element={<Index />} />
+                <Route path="/cohort" element={<Index />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
                 <Route path="/login" element={<LoginPage />} />

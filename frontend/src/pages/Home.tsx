@@ -66,8 +66,32 @@ const Home = () => {
 
     return (
         <div className="min-h-screen bg-navy font-inter">
+        
+        <div>
+        <nav className="fixed top-0 left-0 right-0 bg-navy/90 backdrop-blur-sm z-50 py-3 px-4 md:px-8 bg-color[black]">
+        <div className="container mx-auto flex items-center justify-between">
+            <div className="flex items-center">
+            <img 
+                src="/lovable-uploads/4e5d3fd1-3c90-4a4a-9b48-9acb65aecedc.png" 
+                alt="Brad Partners" 
+                className="h-10 md:h-12"
+            />
+            </div>
+            <div className="flex items-center gap-4 md:gap-6">
+            <div className="text-cream font-medium bg-navy/50 px-4 py-2 rounded-md border border-accent/20">
+                <span className="font-mono">16:00</span>
+            </div>
+            <Button className="bg-accent hover:bg-accent/90 text-white font-medium">
+                Enrol Now <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+            </div>
+        </div>
+        </nav>
+        </div>
+
             {/* Hero Section */}
-            <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-cream via-cream to-cream/95 text-navy py-20 px-4 overflow-hidden">
+            <div>
+            <section className="pt-40 relative min-h-screen flex items-center justify-center bg-gradient-to-b from-cream via-cream to-cream/95 text-navy py-20 px-4 overflow-hidden">
                 {/* Decorative elements */}
                 <div className="absolute inset-0 bg-[url('/subtle-dots.png')] opacity-5" />
                 <div className="absolute top-20 left-20 w-64 h-64 rounded-full bg-accent/5 blur-3xl animate-pulse" style={{ animationDuration: '7s' }} />
@@ -184,6 +208,7 @@ const Home = () => {
                 {/* Decorative elements */}
                 <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-cream/20 to-transparent" />
             </section>
+            </div>
 
             {/* Rest of the content */}
             <Separator className="h-px bg-navy/10" />
