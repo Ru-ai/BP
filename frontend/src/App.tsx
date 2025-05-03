@@ -12,6 +12,8 @@ import LoginPage from "./admin/LoginPage";
 import ProtectedRoute from "./admin/ProtectedRoute";
 import Admin from "./admin/Admin";
 import { AuthProvider } from "./admin/AuthContext";
+import Home from "./pages/Home";
+import ElevateForm from "./pages/ElevateForm";
 
 const queryClient = new QueryClient();
 
@@ -33,7 +35,9 @@ const App = () => {
             <Sonner />
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={<Index />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/elevateForm" element={<ElevateForm />} />
+                <Route path="/cohert" element={<Index />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
                 <Route path="/login" element={<LoginPage />} />
