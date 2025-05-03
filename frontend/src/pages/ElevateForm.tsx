@@ -1,8 +1,5 @@
-/*  
-
-*/
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import React from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -10,7 +7,6 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { ArrowRight } from "lucide-react";
-import dotenv from "dotenv";
 
 const ElevateForm = () => {
   const form = useForm({
@@ -38,10 +34,10 @@ const ElevateForm = () => {
   };
 
   return (
-    <div className="container mx-auto py-20" style={{ backgroundColor: '#ADD8E6', maxWidth: '100%', height: '100%' }}>
-      <Card style={{ maxWidth: '50%', margin: 'auto' }}>
+    <div className="container mx-auto px-4 py-10 bg-blue-200 min-h-screen flex items-center justify-center">
+      <Card className="w-full max-w-lg">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">Elevate Your Agency</CardTitle>
+          <CardTitle className="text-xl md:text-2xl font-bold text-center">Elevate Your Agency</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -59,7 +55,7 @@ const ElevateForm = () => {
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="email"
@@ -73,7 +69,7 @@ const ElevateForm = () => {
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="phoneNo"
@@ -87,7 +83,7 @@ const ElevateForm = () => {
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="companyName"
@@ -101,7 +97,7 @@ const ElevateForm = () => {
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="monthlyRevenue"
@@ -125,7 +121,7 @@ const ElevateForm = () => {
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="industry"
@@ -151,8 +147,8 @@ const ElevateForm = () => {
                   </FormItem>
                 )}
               />
-              
-              <Button type="submit" className="w-full mt-6">
+
+              <Button type="submit" className="w-full mt-6 flex justify-center items-center">
                 Submit <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </form>
