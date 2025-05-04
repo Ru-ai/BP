@@ -7,9 +7,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Badge } from "@/components/ui/badge";
-import { ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
 
 const offers = [
   {
@@ -44,6 +46,7 @@ export const OurOffers = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [api, setApi] = useState<any>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   useEffect(() => {
     if (!api) return;
@@ -57,6 +60,7 @@ export const OurOffers = () => {
   }, [api]);
 
   useEffect(() => {
+    if (hoveredIndex !== null) return; // Pause auto-scroll when hovered
     const interval = setInterval(() => {
       if (api) {
         const nextIndex = (activeIndex + 1) % offers.length;
@@ -64,7 +68,7 @@ export const OurOffers = () => {
       }
     }, 5000);
     return () => clearInterval(interval);
-  }, [activeIndex, api]);
+  }, [activeIndex, api, hoveredIndex]);
 
   return (
     <div className="py-20 bg-gradient-to-b from-cream to-white relative overflow-hidden">
@@ -107,14 +111,17 @@ export const OurOffers = () => {
               {offers.map((offer, index) => (
                 <CarouselItem
                   key={index}
-                  className="md:basis-1/2 lg:basis-1/3 px-4"
+                  className="md:basis-1/2 lg:basis-1/3 px-6"
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
                 >
                   <Card
                     className={cn(
-                      "p-8 bg-white/80 backdrop-blur-md shadow-lg transition-all duration-500 h-full relative overflow-hidden transform hover:-translate-y-2",
+                      "p-8 bg-white/80 backdrop-blur-md shadow-lg transition-all duration-500 h-full relative overflow-hidden transform hover:-translate-y-2 flex flex-col",
                       offer.highlight
                         ? "border-accent/30 shadow-xl shadow-accent/10 hover:shadow-accent/20"
-                        : "border-navy/10 hover:shadow-xl"
+                        : "border-navy/10 hover:shadow-xl",
+                      hoveredIndex !== null && hoveredIndex !== index ? "blur-sm" : ""
                     )}
                   >
                     <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full -translate-x-1/2 -translate-y-1/2 blur-xl"></div>
@@ -128,13 +135,15 @@ export const OurOffers = () => {
                       </div>
                     )}
 
-                    <div className="space-y-4 relative z-10">
-                      <h3 className="font-playfair font-semibold text-xl text-navy mb-2">
-                        {offer.title}
-                      </h3>
-                      <p className="text-navy/80 font-inter leading-relaxed text-base">
-                        {offer.description}
-                      </p>
+                    <div className="space-y-4 relative z-10 flex-1 flex flex-col justify-between">
+                      <div>
+                        <h3 className="font-playfair font-semibold text-xl text-navy mb-2">
+                          {offer.title}
+                        </h3>
+                        <p className="text-navy/80 font-inter leading-relaxed text-base">
+                          {offer.description}
+                        </p>
+                      </div>
 
                       <div className="border-t border-navy/10 pt-4 mt-4 flex justify-end">
                         <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center text-accent">
@@ -163,6 +172,17 @@ export const OurOffers = () => {
                 aria-label={`Go to offer ${index + 1}`}
               />
             ))}
+          </div>
+
+          {/* Centered CTA Button */}
+          <div className="relative animate-fadeIn mt-12 flex justify-center">
+            <div className="absolute inset-0 bg-accent/20 rounded-full blur-xl"></div>
+            <Link to="/elevateForm">
+              <Button className="relative bg-accent hover:bg-accent-light text-white font-medium px-10 py-7 text-lg rounded-full transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl hover:shadow-accent/20">
+                <span className="mr-2">Enroll Now</span>
+                <ArrowRight className="h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
